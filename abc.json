@@ -1,0 +1,68 @@
+{
+  "referenceLocation": {
+    "address": {
+      "city": "Zurich",
+      "houseNumber": "19",
+      "postCode": "8001",
+      "street": "Gerechtigkeitsgasse"
+    }
+  },
+  "filters": {
+    "dealType": "sale",
+    "startDate": {
+      "min": "2018-01-01"
+    },
+    "isActive": true,
+    "salePrice": {
+      "currency": "CHF",
+      "max": 1000000
+    },
+    "location": [
+      {
+        "circle": {
+          "center": {
+            "coordinates": {
+              "latitude": 47.36925,
+              "longitude": 8.531118
+            }
+          },
+          "radius": 30000
+        }
+      }
+    ],
+    "propertyType": [
+      {
+        "code": "apartment",
+        "subcode": "apartment_normal"
+      },
+      {
+        "code": "apartment",
+        "subcode": "apartment_attic"
+      }
+    ],
+    "livingArea": {
+      "min": 80,
+      "max": 110
+    },
+    "numberOfRooms": {
+      "min": 4,
+      "max": 4.5
+    },
+    "hasLift": true,
+    "hasParkingSpaces": true
+  },
+  "includeShareableLinks": true,
+  "offset": 0,
+  "limit": 10,
+  "orderBy": [
+    { 
+      "field": "distance" 
+    },
+    { 
+      "field": "startDate", 
+      "direction": "desc" 
+    }
+  ],
+  "countryCode": "CH",
+  "locale": "de_CH"
+}

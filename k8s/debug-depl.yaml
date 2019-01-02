@@ -1,0 +1,46 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: debugapp
+  name: debugapp-deployment
+spec:
+  minReadySeconds: 15
+  replicas: 1
+  selector:
+    matchLabels:
+      app: debugapp
+  template:
+    metadata:
+      labels:
+        app: debugapp
+    spec:
+      containers:
+        - image: "dchcontreg.azurecr.io/debugdemo:latest"
+          name: debugapp
+          ports:
+            - containerPort: 8090
+              name: httpport
+            - containerPort: 8091
+              name: debugport  
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8090
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 45
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8090
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TIMESTAMP # don't remove if you make deploy via kubectl apply, reason: https://github.com/kubernetes/kubernetes/issues/33664
+              value: 'CURRENT_TIMESTAMP' # value will be set on the fly
+      imagePullSecrets: 
+        - name: k8s-docker-secret
